@@ -14,7 +14,7 @@ public:
 
     T operator= (T other) = delete;
 
-    int operator * ( ) {
+    T& operator * ( ) {
         return ptr_[0];
 
     }
@@ -24,8 +24,9 @@ public:
     }
 
     unique_ptr release() {
+        T * tmp = ptr_;
         ptr_ = nullptr;
-        return ptr_;
+        return tmp;
 
     }
 
@@ -39,12 +40,11 @@ public:
 
 int main()
 {
-    int* ptr = new int[2] {4,6};
-    unique_ptr<int> qwe(ptr);
+    int* ptr = new int (4);
+    unique_ptr<int> uniq_ptr(ptr);
     
-    std::cout << "\n";
-    std::cout << *qwe;
-    qwe.release();
-
+    std::cout << *uniq_ptr;
+    uniq_ptr.release();
+    
     return 0;
 }
